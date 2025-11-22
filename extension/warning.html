@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚠️ PhishGuard - Dangerous Site Blocked</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #dc2626 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .warning-container {
+      max-width: 600px;
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .warning-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    h1 {
+      color: #dc2626;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .danger-text {
+      font-size: 18px;
+      color: #991b1b;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .url-container {
+      background: #fef2f2;
+      padding: 16px;
+      border-radius: 8px;
+      border: 2px solid #fecaca;
+      margin-bottom: 32px;
+      word-break: break-all;
+      font-family: 'Courier New', monospace;
+      color: #7f1d1d;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #dc2626;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #b91c1c;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+
+    .warning-details {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 2px solid #fee2e2;
+      text-align: left;
+    }
+
+    .warning-details h3 {
+      color: #991b1b;
+      margin-bottom: 12px;
+    }
+
+    .warning-details ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .warning-details li {
+      padding: 8px 0;
+      color: #7f1d1d;
+    }
+
+    .warning-details li:before {
+      content: "⚠️ ";
+      margin-right: 8px;
+    }
+
+    .footer {
+      margin-top: 32px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .footer img {
+      width: 24px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="warning-container">
+    <div class="warning-icon">🛡️🔴</div>
+    <h1>Dangerous Site Blocked</h1>
+    <p class="danger-text">PhishGuard AI detected this site as a phishing threat</p>
+    
+    <div class="url-container" id="blocked-url">
+      Loading...
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="goBack()">
+        ← Go Back to Safety
+      </button>
+      <button class="btn btn-secondary" onclick="proceedAnyway()">
+        Proceed Anyway (Not Recommended)
+      </button>
+    </div>
+
+    <div class="warning-details">
+      <h3>🔍 Why was this blocked?</h3>
+      <ul>
+        <li>Site matches known phishing patterns</li>
+        <li>Suspicious domain characteristics detected</li>
+        <li>Possible brand impersonation attempt</li>
+        <li>High risk indicators in URL structure</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <strong>Protected by PhishGuard AI</strong><br>
+      Your safety is our priority
+    </div>
+  </div>
+
+  <script>
+    // Get blocked URL from query params
+    const params = new URLSearchParams(window.location.search);
+    const blockedUrl = params.get('url');
+    
+    if (blockedUrl) {
+      document.getElementById('blocked-url').textContent = decodeURIComponent(blockedUrl);
+    }
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = 'about:blank';
+      }
+    }
+
+    function proceedAnyway() {
+      const confirmed = confirm(
+        'ARE YOU SURE?\n\n' +
+        'This site has been identified as dangerous. Proceeding may result in:\n' +
+        '• Stolen passwords and personal information\n' +
+        '• Financial fraud\n' +
+        '• Malware infection\n' +
+        '• Identity theft\n\n' +
+        'PhishGuard strongly recommends not proceeding.'
+      );
+      
+      if (confirmed) {
+        window.location.href = blockedUrl;
+      }
+    }
+  </script>
+</body>
+</html>
